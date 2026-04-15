@@ -83,7 +83,8 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.settings);
+        androidx.appcompat.app.ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        if (actionBar != null) actionBar.setTitle(R.string.settings);
     }
 
     @Override
@@ -229,11 +230,15 @@ public class SettingsFragment extends Fragment {
             if (editor.commit()) {
                 if (!restartApp) {
                     NavigationView navigationView = getActivity().findViewById(R.id.NavigationView);
-                    navigationView.setCheckedItem(R.id.menu_item_containers);
-                    FragmentManager fragmentManager = getParentFragmentManager();
-                    fragmentManager.beginTransaction()
-                        .replace(R.id.FLFragmentContainer, new ContainersFragment())
-                        .commit();
+                    if (navigationView != null) {
+                        navigationView.setCheckedItem(R.id.menu_item_containers);
+                        FragmentManager fragmentManager = getParentFragmentManager();
+                        fragmentManager.beginTransaction()
+                            .replace(R.id.FLFragmentContainer, new ContainersFragment())
+                            .commit();
+                    } else {
+                        getActivity().onBackPressed();
+                    }
                 }
                 else AppUtils.restartActivity(getActivity());
             }

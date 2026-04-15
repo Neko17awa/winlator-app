@@ -91,7 +91,8 @@ public abstract class BaseFileManagerFragment<T> extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getHomeTitle());
+        ActionBar ab = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        if (ab != null) ab.setTitle(getHomeTitle());
         refreshContent();
     }
 
@@ -113,8 +114,10 @@ public abstract class BaseFileManagerFragment<T> extends Fragment {
 
             if (folderStack.isEmpty()) {
                 ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-                actionBar.setHomeAsUpIndicator(R.drawable.icon_action_bar_menu);
-                actionBar.setTitle(getHomeTitle());
+                if (actionBar != null) {
+                    actionBar.setHomeAsUpIndicator(R.drawable.icon_action_bar_menu);
+                    actionBar.setTitle(getHomeTitle());
+                }
             }
             return true;
         }

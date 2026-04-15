@@ -219,8 +219,10 @@ public class ShortcutsFragment extends BaseFileManagerFragment<Shortcut> {
                 refreshContent();
 
                 ActionBar actionBar = activity.getSupportActionBar();
-                actionBar.setHomeAsUpIndicator(R.drawable.icon_action_bar_back);
-                actionBar.setTitle(shortcut.name);
+                if (actionBar != null) {
+                    actionBar.setHomeAsUpIndicator(R.drawable.icon_action_bar_back);
+                    actionBar.setTitle(shortcut.name);
+                }
             }
             else {
                 Intent intent = new Intent(activity, XServerDisplayActivity.class);

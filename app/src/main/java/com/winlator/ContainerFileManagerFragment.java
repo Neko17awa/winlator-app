@@ -192,6 +192,7 @@ public class ContainerFileManagerFragment extends BaseFileManagerFragment<FileIn
     private void updateActionBarTitle() {
         AppCompatActivity activity = (AppCompatActivity)getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
+        if (actionBar == null) return;
 
         if (!folderStack.isEmpty()) {
             actionBar.setHomeAsUpIndicator(R.drawable.icon_action_bar_back);

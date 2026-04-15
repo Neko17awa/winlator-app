@@ -54,7 +54,8 @@ public class ContainersFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         manager = new ContainerManager(getContext());
         loadContainersList();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.containers);
+        androidx.appcompat.app.ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        if (actionBar != null) actionBar.setTitle(R.string.containers);
     }
 
     @Nullable
@@ -87,11 +88,10 @@ public class ContainersFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         if (menuItem.getItemId() == R.id.menu_item_add) {
             if (!RootFS.find(getContext()).isValid()) return false;
-            FragmentManager fragmentManager = getParentFragmentManager();
-            fragmentManager.beginTransaction()
-                .addToBackStack(null)
-                .replace(R.id.FLFragmentContainer, new ContainerDetailFragment())
-                .commit();
+            MainActivity activity = (MainActivity)getActivity();
+            if (activity != null) {
+                activity.showFragment(new ContainerDetailFragment());
+            }
             return true;
         }
         else return super.onOptionsItemSelected(menuItem);

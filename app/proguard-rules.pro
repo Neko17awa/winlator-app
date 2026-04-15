@@ -17,3 +17,9 @@
 #}
 
 -dontobfuscate
+
+# Kotlin / Compose
+-keep class kotlin.** { *; }
+-keep class kotlinx.** { *; }
+-keep class com.winlator.ui.** { *; }
+-keep class com.winlator.MainActivityComposeKt { *; }
